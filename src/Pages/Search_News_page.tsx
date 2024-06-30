@@ -7,7 +7,7 @@ import { RootState } from "../store";
 import { NewsDetails } from "../store/slices/newsSlice";
 import NewsCard from "../components/news-card.component";
 import Spinner from "../components/spinner.component";
-import { apiKey, envUrl } from "../assets/environment.dev";
+import { envUrl } from "../assets/environment.dev";
 import exportAsImage, { delay } from "../components/news-download.component";
 
 function SearchPage(){
@@ -27,7 +27,7 @@ function SearchPage(){
     const handleSubmit = ()=>{
         if(searchText && searchText.length>0){
             dispatch(getSearchNewsRequestAction(null));
-            axios.get(`${envUrl.search}?q=${searchText && searchText.length>0? searchText: prevSearchText }&lang=${lang}&country=in&apikey=${apiKey}`)
+            axios.get(`${envUrl.search}?q=${searchText && searchText.length>0? searchText: prevSearchText }&lang=${lang}&country=in&apikey=${process.env.VITE_API_KEY}`)
                 .then(response => {
                     setPrevSearchText(searchText);
                     setSearchText('');

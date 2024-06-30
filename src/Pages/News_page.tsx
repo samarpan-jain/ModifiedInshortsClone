@@ -6,19 +6,19 @@ import { RootState } from "../store";
 import { useDispatch, useSelector } from "react-redux";
 import { NewsDetails, getNewsFailedAction, getNewsRequestAction, getNewsSuccessAction } from "../store/slices/newsSlice";
 import NewsCard from "../components/news-card.component";
-import { apiKey, envUrl } from "../assets/environment.dev";
+import { envUrl } from "../assets/environment.dev";
 
 function NewsPage() {
-    const lang = useSelector((state:RootState) => state.newsLang);
-    const news = useSelector((state:RootState) => state.getNews.news);
-    const isLoading = useSelector((state:RootState) => state.getNews.isLoading)
+    const lang = useSelector((state: RootState) => state.newsLang);
+    const news = useSelector((state: RootState) => state.getNews.news);
+    const isLoading = useSelector((state: RootState) => state.getNews.isLoading)
 
     const dispatch = useDispatch();
     const { pathname } = useLocation();
 
     useEffect(() => {
         dispatch(getNewsRequestAction(null));
-        axios.get(`${envUrl.headline}?category=${pathname.slice(1)}&lang=${lang}&country=in&apikey=${apiKey}`)
+        axios.get(`${envUrl.headline}?category=${pathname.slice(1)}&lang=${lang}&country=in&apikey=${process.env.VITE_API_KEY}`)
             .then(response => {
                 dispatch(getNewsSuccessAction(response.data.articles))
             })
@@ -28,11 +28,11 @@ function NewsPage() {
             });
     }, [dispatch, pathname, lang]);
 
-    const newsArr = news.map((res:NewsDetails)=> <NewsCard key={res.publishedAt} title={res.title} content={res.content} description={res.description} image={res.image} url={res.url} publishedAt={res.publishedAt} source={res.source}/>)
+    const newsArr = news.map((res: NewsDetails) => <NewsCard key={res.publishedAt} title={res.title} content={res.content} description={res.description} image={res.image} url={res.url} publishedAt={res.publishedAt} source={res.source} />)
 
     return (
         <div className="newsGrid">
-            {!isLoading ? (newsArr && newsArr.length>0? newsArr : <center style={{color:"red", fontWeight:'bold', backgroundColor:'#EBF1F4'}}>CURRENTLY NO NEWS TO SHOW. PLEASE TRY AFTER SOMETIME....</center>) : <Spinner />}
+            {!isLoading ? (newsArr && newsArr.length > 0 ? newsArr : <center style={{ color: "red", fontWeight: 'bold', backgroundColor: '#EBF1F4' }}>CURRENTLY NO NEWS TO SHOW. PLEASE TRY AFTER SOMETIME....</center>) : <Spinner />}
         </div>
     )
 }
