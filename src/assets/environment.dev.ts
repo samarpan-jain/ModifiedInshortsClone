@@ -1,4 +1,4 @@
 export const envUrl = {
-    headline: "https://gnews.io/api/v4/top-headlines",
-    search: "https://gnews.io/api/v4/search"
+    headline: "https://modified-inshorts-backend.vercel.app/api/news",
+    search: "https://modified-inshorts-backend.vercel.app/api/news/search"
 }

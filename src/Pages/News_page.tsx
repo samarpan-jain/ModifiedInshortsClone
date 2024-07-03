@@ -18,9 +18,9 @@ function NewsPage() {
 
     useEffect(() => {
         dispatch(getNewsRequestAction(null));
-        axios.get(`${envUrl.headline}?category=${pathname.slice(1)}&lang=${lang}&country=in&apikey=${process.env.VITE_API_KEY}`)
+        axios.get(`${envUrl.headline}?category=${pathname.slice(1)}&lang=${lang}`)
             .then(response => {
-                dispatch(getNewsSuccessAction(response.data.articles))
+                dispatch(getNewsSuccessAction(response.data))
             })
             .catch(error => {
                 dispatch(getNewsFailedAction([]))
