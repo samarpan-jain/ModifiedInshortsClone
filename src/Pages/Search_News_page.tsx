@@ -12,7 +12,6 @@ import exportAsImage, { delay } from "../components/news-download.component";
 
 function SearchPage(){
     const [searchText, setSearchText] = useState('');
-    const [prevSearchText, setPrevSearchText] = useState('');
     const searchItem = (event:React.ChangeEvent<HTMLInputElement>)=>{
         setSearchText(event.target.value);
     }
@@ -27,9 +26,8 @@ function SearchPage(){
     const handleSubmit = ()=>{
         if(searchText && searchText.length>0){
             dispatch(getSearchNewsRequestAction(null));
-            axios.get(`${envUrl.search}?q=${searchText && searchText.length>0? searchText: prevSearchText }&lang=${lang}&country=in&apikey=${process.env.VITE_API_KEY}`)
+            axios.get(`${envUrl.search}?q=${searchText}&lang=${lang}&country=in&apikey=${process.env.VITE_API_KEY}`)
                 .then(response => {
-                    setPrevSearchText(searchText);
                     setSearchText('');
                     dispatch(getSearchNewsSuccessAction(response.data.articles));
                 })
