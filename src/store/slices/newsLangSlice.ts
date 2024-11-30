@@ -1,14 +1,18 @@
 import { createSlice, CreateSliceOptions } from "@reduxjs/toolkit";
 
+const initialState = {
+    newsLang:'en'
+}
+
 export const newsLangSlice = createSlice({
     name:'newsLang',
-    initialState: 'en',
+    initialState,
     reducers:{
         changeLang:(state)=>{
-            if(state == 'en'){
-                return 'hi'
+            if(state.newsLang == 'en'){
+                return {newsLang:'hi'}
             }
-            return 'en'
+            return {newsLang:'en'}
         }
     }
 } as CreateSliceOptions)

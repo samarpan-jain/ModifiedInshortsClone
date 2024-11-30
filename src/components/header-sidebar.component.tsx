@@ -1,17 +1,18 @@
 import '../App.css';
 import { useState } from 'react';
 import { Menu } from '../common/menu';
-import { NavLink, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeLang } from '../store/slices/newsLangSlice';
+import { RootState } from '../store';
 
 function HeaderSideBar({ menu }: { menu: Menu[] }) {
     const [menuState, setMenuState] = useState(false);
-    const { pathname } = useLocation();
+    const lang = useSelector((state: RootState) => state.newsLang);
 
     const dispatch = useDispatch();
-    const handleLangChange = ()=>{
-        dispatch(changeLang(null))
+    const handleLangChange = () => {
+        return dispatch(changeLang(lang))
     }
 
     const openNav = () => {
@@ -39,12 +40,12 @@ function HeaderSideBar({ menu }: { menu: Menu[] }) {
             }
             <div className='header'>
                 <span style={{ fontSize: "30px", cursor: 'pointer' }} onClick={openNav}> &#9776;</span>&nbsp;Menu
-                {pathname !== '/search'?<div className="switch">
-                    <input id="language-toggle" className="check-toggle check-toggle-round-flat" onChange={handleLangChange} type="checkbox"/>
+                <div className="switch">
+                    <input id="language-toggle" className="check-toggle check-toggle-round-flat" onChange={handleLangChange} type="checkbox" />
                     <label htmlFor="language-toggle"></label>
                     <span className="on">EN</span>
                     <span className="off">HI</span>
-                </div>:null}
+                </div>
             </div>
             <div>
                 <a rel='noopener noreferrer' href='https://www.inshorts.com/' target="_blank">

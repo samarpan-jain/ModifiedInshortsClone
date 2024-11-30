@@ -16,7 +16,7 @@ function SearchPage() {
         setSearchText(event.target.value);
     }
 
-    const lang = useSelector((state: RootState) => state.newsLang);
+    const lang = useSelector((state: RootState) => state.newsLang.newsLang);
     const news = useSelector((state: RootState) => state.searchNews.newsSearch);
     const isLoading = useSelector((state: RootState) => state.searchNews.isLoading);
     const newsArr = news.map((res: NewsDetails) => <NewsCard key={res.publishedAt} title={res.title} content={res.content} description={res.description} image={res.image} url={res.url} publishedAt={res.publishedAt} source={res.source} />)

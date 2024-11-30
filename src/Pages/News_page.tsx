@@ -9,7 +9,7 @@ import NewsCard from "../components/news-card.component";
 import { envUrl } from "../assets/environment.dev";
 
 function NewsPage() {
-    const lang = useSelector((state: RootState) => state.newsLang);
+    const lang = useSelector((state: RootState) => state.newsLang.newsLang);
     const news = useSelector((state: RootState) => state.getNews.news);
     const isLoading = useSelector((state: RootState) => state.getNews.isLoading)
 
