@@ -33,7 +33,11 @@ function NewsCard({ title, description, url, image, publishedAt, source }: NewsD
     const readSummary = ((url: string) => {
         handleClick();
         dispatch(getSummaryNewsRequestAction(null));
-        axios.post(`${envUrl.summary}`, { url })
+        axios.post(`${envUrl.summary}`, { url }, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
             .then(response => {
                 setModalData(response.data);
                 dispatch(getSummaryNewsSuccessAction(response.data));
@@ -79,7 +83,7 @@ function NewsCard({ title, description, url, image, publishedAt, source }: NewsD
                             <button title="copy to clipboard" className="copyIcon"><MdContentCopy /></button>
                         </CopyToClipboard>
                         <div className="float-right cursor-pointer">
-                            <p onClick={() => readSummary(url)} style={{color:'blue'}}>Read Summary</p>
+                            <p onClick={() => readSummary(url)} style={{ color: 'blue' }}>Read Summary</p>
                             {showModal && modal}
                         </div>
                     </div>
