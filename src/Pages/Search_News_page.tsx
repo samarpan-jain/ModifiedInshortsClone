@@ -26,7 +26,7 @@ function SearchPage() {
     const handleSubmit = () => {
         if (searchText && searchText.length > 0) {
             dispatch(getSearchNewsRequestAction(null));
-            axios.get(`${envUrl.search}?q=${searchText}&lang=${lang}`)
+            axios.get(`${envUrl.search}?searchTerm=${searchText}&lang=${lang}`)
                 .then(response => {
                     setSearchText('');
                     dispatch(getSearchNewsSuccessAction(response.data));
